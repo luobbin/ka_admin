@@ -44,22 +44,20 @@
     </el-form>
 
     <el-dialog class="application" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="60%">
-      <el-form :model="applicationForm" ref="applicationForm" :rules="applicationRules" size="small">
+      <el-form :model="applicationForm" ref="applicationForm" :rules="applicationRules" size="small" label-width="90px" style='width: 400px; margin-left:50px;'>
         <el-form-item label="标题" prop="title">
-          <el-col :span="8"><el-input v-model="applicationForm.title"></el-input></el-col>
+          <el-input v-model="applicationForm.title"></el-input>
           <span style="color: red; padding-left: 5px;">必填</span>
         </el-form-item>
         <el-form-item label="链接" prop="url">
-          <el-col :span="8"><el-input v-model="applicationForm.url"></el-input></el-col>
+          <el-input v-model="applicationForm.url"></el-input>
         </el-form-item>
         <el-form-item label="描述" prop="content">
           <el-input type="textarea" :rows="3" autosize placeholder="请输入内容" v-model="applicationForm.info">
           </el-input>
         </el-form-item>
         <el-form-item label="图片" prop="img">
-          <el-col :span="16">
-            <Upload v-model="applicationForm.img" />
-          </el-col>
+          <Upload v-model="applicationForm.img" />
           <br>
           <span style="color: red"> [必填,固定尺寸：宽1800px*高1053px，格式JPG，PNG]</span>
         </el-form-item>

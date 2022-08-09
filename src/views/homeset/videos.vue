@@ -42,19 +42,15 @@
     </el-form>
 
     <el-dialog class="application" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="60%">
-      <el-form :model="applicationForm" ref="applicationForm" :rules="applicationRules" size="small">
+      <el-form :model="applicationForm" ref="applicationForm" :rules="applicationRules" size="small" label-width="90px" style='width: 400px; margin-left:50px;'>
         <el-form-item label="标题" prop="title">
-          <el-col :span="8"><el-input v-model="applicationForm.title"></el-input></el-col>
+          <el-input v-model="applicationForm.title"></el-input>
         </el-form-item>
         <el-form-item label="展示视频" prop="url">
-          <el-col :span="8">
             <FileUpload v-model="applicationForm.url" />
-          </el-col>
         </el-form-item>
         <el-form-item label="视频封面" prop="img">
-          <el-col :span="16">
-            <Upload v-model="applicationForm.img" />
-          </el-col>
+          <Upload v-model="applicationForm.img" />
           <br>
           <span style="color: red"> [必填,固定尺寸：宽915px*高450px，格式JPG，PNG]</span>
         </el-form-item>
