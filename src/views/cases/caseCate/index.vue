@@ -46,6 +46,9 @@
         <el-form-item label="分类名称" prop="name">
           <el-input v-model="temp.name"></el-input>
         </el-form-item>
+        <el-form-item label="图片" prop="img">
+            <Upload v-model="temp.img" />
+        </el-form-item>
         <el-form-item label="排序" prop="sort">
           <el-input v-model="temp.sort"></el-input>
         </el-form-item>
@@ -62,9 +65,13 @@
 </template>
 
 <script>
+import Tinymce from '@/components/Tinymce'
+import Upload from '@/components/Upload/uploadImage'
+import Sticky from '@/components/Sticky' // 粘性header组件
 import { getList,deleteData,createData,updateData } from '@/api/caseCate'
 
 export default {
+  components: { Tinymce, Upload, Sticky},
   data() {
     return {
       tableKey: 0,
@@ -84,6 +91,7 @@ export default {
       temp: {
         id: undefined,
         name: '',
+        img:'',
         sort: 0,
         pid:0
       },
@@ -224,6 +232,7 @@ export default {
         this.temp = {
           id: undefined,
           name: '',
+          img: '',
           sort: 0,
           pid:0
         }

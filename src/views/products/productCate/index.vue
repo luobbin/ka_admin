@@ -47,6 +47,9 @@
           </el-select>
         </el-form-item>
         </div>
+        <el-form-item label="图片" prop="img">
+          <Upload v-model="temp.img" />
+        </el-form-item>
         <el-form-item label="排序" prop="sort">
           <el-input v-model="temp.sort"></el-input>
         </el-form-item>
@@ -62,9 +65,13 @@
 </template>
 
 <script>
+import Tinymce from '@/components/Tinymce'
+import Upload from '@/components/Upload/uploadImage'
+import Sticky from '@/components/Sticky' // 粘性header组件
 import { getList, deleteData, fetchData, createData, updateData, getAllCates } from '@/api/productcate'
 
 export default {
+  components: { Tinymce, Upload, Sticky},
   data() {
     return {
       tableKey: 0,
@@ -89,6 +96,7 @@ export default {
         name: '',
         sub_name: '',
         info: '',
+        img: '',
         sort: '',
         cate: [],
         pid:0
@@ -184,6 +192,7 @@ export default {
           name: arr.name,
           sub_name: arr.sub_name,
           info: arr.info,
+          img: arr.img,
           sort: arr.sort,
           cate: arr.cate,
           pid: arr.pid
@@ -194,6 +203,8 @@ export default {
           name: '',
           sub_name: '',
           info: '',
+          img: '',
+          img: '',
           sort: '',
           cate: undefined,
           pid:1

@@ -51,44 +51,27 @@
     <el-form-item label="底部菜单配置" prop="footer_menu_setting">
       <el-input type="textarea" v-model="postForm.footer_menu_setting"></el-input>
     </el-form-item>
-    <el-form-item label="加载中图片" prop="loading_img">
-      <el-col :span="6">
-        <Upload v-model="postForm.loading_img" />
-      </el-col>
-    </el-form-item>
 
     <el-form-item label="联系时间" prop="connect_time">
       <el-input v-model="postForm.connect_time"></el-input>
     </el-form-item>
     <el-form-item label="联系地址" prop="connect_address">
-      <el-input v-model="postForm.connect_address"></el-input>
+      <el-input type="textarea" v-model="postForm.connect_address"></el-input>
     </el-form-item>
-    <el-form-item label="案例中心PC版背景图" prop="cases_background_pc_img">
+    <el-form-item label="公司招聘PC版背景图" prop="jobs_background_pc_img">
       <el-col :span="8">
-        <Upload v-model="postForm.cases_background_pc_img" />
+        <Upload v-model="postForm.jobs_background_pc_img" />
       </el-col>
     </el-form-item>
-    <el-form-item label="案例中心手机版背景图" prop="cases_background_mob_img">
+    <el-form-item label="公司招聘手机版背景图" prop="jobs_background_mob_img">
       <el-col :span="6">
-        <Upload v-model="postForm.cases_background_mob_img" />
+        <Upload v-model="postForm.jobs_background_mob_img" />
       </el-col>
     </el-form-item>
-    <el-form-item label="案例中心背景图介绍" prop="cases_background_info">
-      <el-input type="textarea" v-model="postForm.cases_background_info"></el-input>
+    <el-form-item label="公司招聘背景图介绍" prop="jobs_background_info">
+      <el-input type="textarea" v-model="postForm.jobs_background_info"></el-input>
     </el-form-item>
-    <el-form-item label="案例详情PC版背景图" prop="case_background_pc_img">
-      <el-col :span="8">
-        <Upload v-model="postForm.case_background_pc_img" />
-      </el-col>
-    </el-form-item>
-    <el-form-item label="案例详情手机版背景图" prop="case_background_mob_img">
-      <el-col :span="6">
-        <Upload v-model="postForm.case_background_mob_img" />
-      </el-col>
-    </el-form-item>
-    <el-form-item label="案例详情背景图介绍" prop="case_background_info">
-      <el-input type="textarea" v-model="postForm.case_background_info"></el-input>
-    </el-form-item>
+
     <el-form-item label="产品详情PC版背景图" prop="product_background_pc_img">
       <el-col :span="8">
         <Upload v-model="postForm.product_background_pc_img" />
@@ -131,6 +114,11 @@ const defaultForm = {
   loading_img: '',
   connect_time: '',
   connect_address: '',
+  jobs_background_pc_img: '',
+  jobs_background_mob_img: '',
+  jobs_background_info: '',
+  product_background_pc_img: '',
+  product_background_mob_img: '',
 }
 export default {
   name: 'webset',
@@ -175,7 +163,12 @@ export default {
         mob_header_menu_setting: [{ validator: validateRequire }],
         footer_menu_setting: [{ validator: validateRequire }],
         connect_phone_img: [{ validator: validateRequire }],
-        loading_img: [{ validator: validateRequire }]
+        loading_img: [{ validator: validateRequire }],
+        jobs_background_pc_img: [{ validator: validateRequire }],
+        jobs_background_mob_img: [{ validator: validateRequire }],
+        jobs_background_info: [{ validator: validateRequire }],
+        product_background_pc_img: [{ validator: validateRequire }],
+        product_background_mob_img: [{ validator: validateRequire }],
       }
     }
   },

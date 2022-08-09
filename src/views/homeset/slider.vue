@@ -61,7 +61,7 @@
             <Upload v-model="applicationForm.img" />
           </el-col>
           <br>
-          <span style="color: red"> [必填,固定尺寸：宽540px*高540px，格式JPG，PNG]</span>
+          <span style="color: red"> [必填,固定尺寸：宽1800px*高1053px，格式JPG，PNG]</span>
         </el-form-item>
 
       </el-form>
