@@ -226,7 +226,7 @@ export const constantRouterMap = [
         path: 'job-list',
         name: 'job-list',
         component: () => import('@/views/jobs/job/index'),
-        meta: { title: '招聘列表', icon: 'tree' }
+        meta: { title: '招聘管理', icon: 'tree' }
       },
       {
         path: 'job-create',
