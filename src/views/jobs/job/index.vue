@@ -1,42 +1,54 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" v-loading="listLoading" element-loading-text="Loading">
     <div class="filter-container" style="margin-bottom:10px;">
-      <router-link :to="'/articles/article'">
-        <el-button type="primary" icon="el-icon-back">返回列表</el-button>
+      <router-link :to="'/jobs/job-create'">
+        <el-button class="filter-item" type="primary" icon="el-icon-edit">添加</el-button>
       </router-link>
     </div>
 
-    <el-table ref="multipleTable" :data="list" v-loading="listLoading" element-loading-text="Loading" @selection-change="handleSelectionChange" border fit highlight-current-row>
+    <el-table ref="multipleTable" :data="list" @selection-change="handleSelectionChange" border fit highlight-current-row>
       <el-table-column type="selection" width="35"></el-table-column>
+
       <el-table-column prop="id" label="ID" width="60"></el-table-column>
-      <el-table-column prop="title" label="标题" align="center"></el-table-column>
-      <el-table-column label="栏目" width="120">
+
+      <el-table-column label="岗位名称" align="center">
         <template slot-scope="scope">
-          {{scope.row.type.title}}
+          <router-link :to="'/jobs/job-edit/'+scope.row.id">
+            <span class="link-type">{{scope.row.title}}</span>
+          </router-link>
         </template>
       </el-table-column>
-      <el-table-column label="关键词" width="120" align="center">
+
+      <el-table-column label="工作经验">
         <template slot-scope="scope">
-          {{scope.row.keyword}}
+          <span>{{scope.row.jingyan}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="hits" label="点击" width="60"></el-table-column>
-      
-      <el-table-column label="排序" width="60">
+
+      <el-table-column label="学历要求">
         <template slot-scope="scope">
-          <span v-if="scope.row.sort>0">{{scope.row.sort}}</span>
-          <span v-else>--</span>
+          <span>{{scope.row.demand}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="addtime" label="添加时间" width="180">
+
+      <el-table-column label="薪资待遇">
+        <template slot-scope="scope">
+          <span>{{scope.row.salary}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="create_at" label="添加时间" width="180">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
-          <span>{{scope.row.addtime|parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.created_at}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="operate" label="操作" width="160">
+
+      <el-table-column prop="operate" label="操作" width="160" align="center">
         <template slot-scope="scope">
-          --
+          <router-link :to="'/jobs/job-edit/'+scope.row.id">
+            <el-button type="primary" size="small">修改</el-button>
+          </router-link>
         </template>
       </el-table-column>
     </el-table>
@@ -45,19 +57,14 @@
       <el-checkbox v-if="checkAll==0" :indeterminate="isIndeterminate" @change="toggleSelection(list)">全选</el-checkbox>
       <el-checkbox v-else-if="checkAll==1" :indeterminate="isIndeterminate" @change="toggleSelection(list)">反选</el-checkbox>
       <el-checkbox v-else  @change="toggleSelection()" :indeterminate="isIndeterminate">取消全选</el-checkbox>
-      <el-button type="danger" size="mini" @click="handleDelete()">彻底删除</el-button>
-
-      <el-pagination background @current-change="handleCurrentChange" :current-page="listQuery.page"
-        :page-sizes="[listQuery.limit]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
-      </el-pagination>
+      <el-button type="danger" size="mini" @click="handleDelete()">删除</el-button>
     </div>
 
   </div>
 </template>
 
 <script>
-import { getList,deleteData } from '@/api/article'
-import { parseTime, parseDate } from '@/utils'
+import { getList,deleteData } from '@/api/job'
 
 export default {
   data() {
@@ -70,11 +77,17 @@ export default {
         page: 1,
         limit: 15,
         searchJoin: 'and',
-        search: 'del:1;',
-        searchFields: 'del:=;',
-        orderBy: 'sort',
+        search: '',
+        searchFields: '',
+        orderBy: 'id',
         sortedBy: 'desc',
         filter: ''
+      },
+      searchQuery: {
+        search: '',
+        searchFields: '',
+        field: '',//搜索字段
+        keyword: '',//搜索字段对应关键词
       },
       multipleSelection: [],
       checkAll: 0,
@@ -91,10 +104,28 @@ export default {
     getList() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data.data
-        this.total = response.data.total
+        console.log("获取列表数据",response)
+        this.list = response.data
+        this.total = response.data.length
         this.listLoading = false
       })
+    },
+    //搜索
+    handleFilter() {
+      //object格式化
+      const tempData = Object.assign({}, this.searchQuery)
+
+      let search = tempData.search
+      let searchFields = tempData.searchFields
+      if (tempData.keyword) {
+        search += 'title:'+ tempData.keyword + ';'
+        searchFields += 'title:like;'
+      }
+
+      this.listQuery.search = search
+      this.listQuery.searchFields = searchFields
+      this.listQuery.page = 1
+      this.getList()
     },
     //更换页面
     handleCurrentChange(val) {
@@ -108,13 +139,13 @@ export default {
           this.$refs.multipleTable.toggleRowSelection(row)
         });
       } else {
-        this.$refs.multipleTable.clearSelection()  
+        this.$refs.multipleTable.clearSelection()
       }
     },
     //获取选中对象
     handleSelectionChange(val) {
       this.multipleSelection = val;
-      if(this.multipleSelection.length == this.list.length){
+      if(this.multipleSelection.length === this.list.length){
         this.checkAll = 2
         this.isIndeterminate = true
       }else if (this.multipleSelection.length > 0) {
@@ -135,7 +166,7 @@ export default {
         });
         return false
       }
-      this.$confirm('此操作将彻底删除数据, 是否继续?', '提示', {
+      this.$confirm('此操作将数据彻底删除, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'error'
@@ -144,6 +175,7 @@ export default {
         for (const v of this.multipleSelection) {
             ids += v.id + ','
         }
+
         this.listLoading = true
         deleteData(ids).then(response => {
           this.$message({
@@ -154,7 +186,7 @@ export default {
           this.getList()
           this.listLoading = false
         })
-        
+
       }).catch(() => {
         //取消后的操作
       })

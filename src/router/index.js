@@ -209,12 +209,42 @@ export const constantRouterMap = [
         path: 'article-cate',
         name: 'article-cate',
         component: () => import('@/views/articles/articleCate/index'),
-        meta: { title: '新闻栏目', icon: 'tree' }
+        meta: { title: '新闻栏目', icon: '' }
       }
     ],
     common:1
   },
-
+  // 招聘管理
+  {
+    path: '/jobs',
+    component: Layout,
+    redirect: '/jobs/job-list',
+    name: 'Jobs',
+    meta: { title: '招聘管理', icon: 'table' },
+    children: [
+      {
+        path: 'job-list',
+        name: 'job-list',
+        component: () => import('@/views/jobs/job/index'),
+        meta: { title: '招聘列表', icon: 'tree' }
+      },
+      {
+        path: 'job-create',
+        name: 'job-create',
+        component: () => import('@/views/jobs/job/create'),
+        meta: { title: '添加信息', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'job-edit/:id(\\d+)',
+        name: 'job-edit',
+        component: () => import('@/views/jobs/job/edit'),
+        meta: { title: '编辑信息', noCache: true },
+        hidden: true
+      }
+    ],
+    common:1
+  },
   //其他设置
   {
     path: '/webset',
@@ -250,7 +280,7 @@ export const constantRouterMap = [
         hidden: true
       }
     ],
-    common:1
+    common: 1
   },
   {
     path: '/form',
