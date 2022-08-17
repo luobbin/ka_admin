@@ -6,7 +6,7 @@
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         </el-upload>
-        <div v-show="imageUrl.length>0" class="image-preview">
+        <div v-if="imageUrl!==null" v-show="imageUrl.length>0" class="image-preview">
           <div class="image-preview-wrapper" v-show="imageUrl.length>1">
             <img :src="imageUrl">
             <div class="image-preview-action">

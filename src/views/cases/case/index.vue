@@ -114,7 +114,7 @@ export default {
     getList() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        console.log("案例列表",response.data);
+        //console.log("案例列表",response.data);
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
