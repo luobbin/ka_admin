@@ -27,10 +27,10 @@
       </el-table-column>
       <el-table-column label="类目" width="120">
         <template slot-scope="scope">
-          <span>{{scope.row.cate.name}}</span>
+          <span v-if="scope.row.cate!==null">{{scope.row.cate.name}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="index_img" width="180" align="center">
+      <el-table-column label="首图" width="180" align="center">
         <template slot-scope="scope">
           <img :src="scope.row.index_img" width="auto" height="80">
         </template>
@@ -86,7 +86,7 @@ export default {
         searchJoin: 'and',
         search: '',
         searchFields: '',
-        orderBy: 'sort',
+        orderBy: 'id',
         sortedBy: 'desc',
         filter: ''
       },

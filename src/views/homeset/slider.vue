@@ -59,7 +59,7 @@
         <el-form-item label="图片" prop="img">
           <Upload v-model="applicationForm.img" />
           <br>
-          <span style="color: red"> [必填,固定尺寸：宽1800px*高1053px，格式JPG，PNG]</span>
+          <span style="color: red"> [必填,建议尺寸：宽1800px*高1053px，格式JPG，PNG]</span>
         </el-form-item>
 
       </el-form>

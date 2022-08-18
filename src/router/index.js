@@ -209,7 +209,7 @@ export const constantRouterMap = [
         path: 'article-cate',
         name: 'article-cate',
         component: () => import('@/views/articles/articleCate/index'),
-        meta: { title: '新闻栏目', icon: '' }
+        meta: { title: '新闻栏目', icon: 'table' }
       }
     ],
     common:1

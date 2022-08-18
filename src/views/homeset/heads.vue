@@ -13,11 +13,15 @@
         <el-col :span="8">
           <FileUpload v-model="postForm.application.pc_video_url" />
         </el-col>
+        <br>
+        <span style="color: red"> [必填,建议尺寸：宽1920px*高1000px，格式mp4]</span>
       </el-form-item>
       <el-form-item label="手机版顶部封面" prop="mob_img_url">
-        <el-col :span="6">
+        <el-col :span="16">
           <Upload v-model="postForm.application.mob_img_url" />
         </el-col>
+        <br>
+        <span style="color: red"> [必填,建议尺寸：宽1920px*高1000px，格式JPG，PNG]</span>
       </el-form-item>
       <el-form-item label="手机版顶部标题" prop="mob_h3">
         <el-input v-model="postForm.application.mob_h3"></el-input>

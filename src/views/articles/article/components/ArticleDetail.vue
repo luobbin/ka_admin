@@ -25,6 +25,8 @@
           <el-col :span="8">
             <Upload v-model="postForm.index_img" />
           </el-col>
+          <br>
+          <span style="color: red"> [必填,建议尺寸：宽1920px*高1000px，格式jpg,png]</span>
         </el-form-item>
 
 

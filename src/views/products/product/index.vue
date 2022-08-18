@@ -33,7 +33,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="index_img" width="180" align="center">
+      <el-table-column label="首图" width="180" align="center">
         <template slot-scope="scope">
           <img :src="scope.row.index_img" width="auto" height="80">
         </template>

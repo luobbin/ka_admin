@@ -10,6 +10,13 @@
       <el-col :span="6">
         <Upload v-model="postForm.logo" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽100px*高50px，格式png]</span>
+    </el-form-item>
+    <el-form-item label="水印开关">
+      <el-select  v-model="postForm.watermark_switch" clearable placeholder="请选择">
+        <el-option v-for="item in watermarkSwitchOptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="版权信息" prop="web_copyright">
       <el-input v-model="postForm.web_copyright"></el-input>
@@ -23,11 +30,15 @@
       <el-col :span="6">
         <Upload v-model="postForm.default_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item label="公众号二维码" prop="public_account_img">
       <el-col :span="6">
         <Upload v-model="postForm.public_account_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽500px*高500px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item label="右侧置顶按钮" prop="right_account_list">
       <el-input type="textarea" v-model="postForm.right_account_list"></el-input>
@@ -39,10 +50,14 @@
       <el-col :span="6">
         <Upload v-model="postForm.wechat_connect_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽500px*高500px，格式jpg,png]</span>
     </el-form-item>
-    <el-form-item label="产品目录申请图集">
+    <el-form-item label="产品目录申请图集" title="建议尺寸：宽1920px*高650px，格式jpg,png">
       <div style="margin-bottom: 20px;">
         <Mupload v-bind:imgs="postForm.catalog_apply_imgs" @successCBK="imageSuccessCBK" />
+        <br>
+        <span style="color: red"> [必填,建议尺寸：宽604px*高823px，格式jpg,png]</span>
       </div>
     </el-form-item>
     <el-form-item label="头部菜单配置" prop="web_header_menu_setting">
@@ -59,14 +74,18 @@
       <el-input type="textarea" v-model="postForm.connect_address"></el-input>
     </el-form-item>
     <el-form-item label="公司招聘PC版背景图" prop="jobs_background_pc_img">
-      <el-col :span="8">
+      <el-col :span="12">
         <Upload v-model="postForm.jobs_background_pc_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽1920px*高650px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item label="公司招聘手机版背景图" prop="jobs_background_mob_img">
       <el-col :span="6">
         <Upload v-model="postForm.jobs_background_mob_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item label="公司招聘背景图介绍" prop="jobs_background_info">
       <el-input type="textarea" v-model="postForm.jobs_background_info"></el-input>
@@ -76,27 +95,35 @@
     </el-form-item>
 
     <el-form-item label="产品中心PC版背景图" prop="pcenter_background_pc_img">
-      <el-col :span="8">
+      <el-col :span="12">
         <Upload v-model="postForm.pcenter_background_pc_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽1920px*高650px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item label="产品中心手机版背景图" prop="pcenter_background_mob_img">
-      <el-col :span="8">
+      <el-col :span="6">
         <Upload v-model="postForm.pcenter_background_mob_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item label="产品中心背景图介绍" prop="pcenter_background_info">
       <el-input type="textarea" v-model="postForm.pcenter_background_info"></el-input>
     </el-form-item>
-    <el-form-item label="产品详情PC版背景图" prop="product_background_pc_img">
-      <el-col :span="8">
+    <el-form-item label="产品详情PC版背景图" title="建议尺寸：宽1920px*高650px" prop="product_background_pc_img">
+      <el-col :span="12">
         <Upload v-model="postForm.product_background_pc_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽1920px*高650px，格式jpg,png]</span>
     </el-form-item>
-    <el-form-item label="产品详情手机版背景图" prop="product_background_mob_img">
+    <el-form-item label="产品详情手机版背景图" title="建议尺寸：宽800px*高800px" prop="product_background_mob_img">
       <el-col :span="6">
         <Upload v-model="postForm.product_background_mob_img" />
       </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit" style="letter-spacing:2px">立即发布</el-button>
@@ -122,7 +149,7 @@ const defaultForm = {
   right_account_list: '',
   connect_phone: '',
   wechat_connect_img: '',
-  catalog_apply_imgs: '',
+  catalog_apply_imgs: [],
   web_header_menu_setting: '',
   mob_header_menu_setting: '',
   footer_menu_setting: '',
@@ -139,7 +166,15 @@ const defaultForm = {
   pcenter_background_pc_img: '',//产品中心PC版背景图
   pcenter_background_mob_img: '',//产品中心手机版背景图
   pcenter_background_info: '',//产品中心背景图介绍
+  watermark_switch: 1,//水印开关
 }
+
+//列表样式
+const watermarkSwitchOptions = [
+  { id: '1', name: '开启' },
+  { id: '0', name: '关闭' },
+]
+
 export default {
   name: 'webset',
   components: { Tinymce, Upload, Sticky,Mupload},
@@ -166,6 +201,7 @@ export default {
         sortedBy: 'asc',
         filter: ''
       },
+      watermarkSwitchOptions,
       postForm: Object.assign({}, defaultForm),
       loading: false,
       rules: {
@@ -193,6 +229,7 @@ export default {
         pcenter_background_pc_img: [{ validator: validateRequire }],
         pcenter_background_mob_img: [{ validator: validateRequire }],
         pcenter_background_info: [{ validator: validateRequire }],
+        watermark_switch: [{ validator: validateRequire }],
       }
     }
   },
@@ -206,6 +243,7 @@ export default {
       this.listLoading = true
       getList(this.listQuery).then(response => {
         this.postForm = response.data.data
+        console.log("列表数据",this.postForm);
         this.listLoading = false
       })
     },

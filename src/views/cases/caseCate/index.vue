@@ -16,6 +16,11 @@
           <span>(cid:{{scope.row.id}})</span>
         </template>
       </el-table-column>
+      <el-table-column label="首图" width="180" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.img" width="auto" height="80">
+        </template>
+      </el-table-column>
       <el-table-column label="排序">
         <template slot-scope="scope">
           <span v-if="scope.row.sort>0">{{scope.row.sort}}</span>
@@ -47,7 +52,9 @@
           <el-input v-model="temp.name"></el-input>
         </el-form-item>
         <el-form-item label="图片" prop="img">
-            <Upload v-model="temp.img" />
+          <Upload v-model="temp.img" />
+          <br>
+          <span style="color: red"> [必填,建议尺寸：宽1920px*高650px，格式jpg,png]</span>
         </el-form-item>
         <el-form-item label="排序" prop="sort">
           <el-input v-model="temp.sort"></el-input>

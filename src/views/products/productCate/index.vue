@@ -8,11 +8,15 @@
       <el-table-column :selectable='checkboxT' type="selection" width="35" disabled='true'></el-table-column>
       <el-table-column prop="id" label="ID" width="60"> </el-table-column>
 
-      <el-table-column prop="pid_name" label="上级分类名" width="100"></el-table-column>
-      <el-table-column prop="sub_name" label="名称" ></el-table-column>
 
-      <el-table-column prop="info" label="级别" width="90">
+      <el-table-column prop="sub_name" label="名称" ></el-table-column>
+      <el-table-column label="首图" width="180" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.img" width="auto" height="60">
+        </template>
       </el-table-column>
+      <el-table-column prop="info" label="级别" width="90"></el-table-column>
+      <el-table-column prop="pid_name" label="上级分类名" width="100"></el-table-column>
       <el-table-column label="排序" width="80">
         <template slot-scope="scope">
           <span v-if="scope.row.sort>0">{{scope.row.sort}}</span>
@@ -49,6 +53,8 @@
         </div>
         <el-form-item label="图片" prop="img">
           <Upload v-model="temp.img" />
+          <br>
+          <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
         </el-form-item>
         <el-form-item label="排序" prop="sort">
           <el-input v-model="temp.sort"></el-input>

@@ -63,10 +63,16 @@
           <el-col :span="6">
             <Upload v-model="postForm.video_img" />
           </el-col>
+          <br>
+          <span style="color: red"> [必填,建议尺寸：宽1920px*高1000px，格式jpg,png]</span>
         </el-form-item>
 
         <el-form-item label="视频" prop="video_url">
-          <FileUpload v-model="postForm.video_url" />
+          <el-col :span="8">
+            <FileUpload v-model="postForm.video_url" />
+          </el-col>
+          <br>
+          <span> [建议尺寸：宽1920px*高1000px，格式mp4]</span>
         </el-form-item>
 
         <el-form-item label="首页展示">
@@ -101,9 +107,11 @@
           </el-input>
         </el-form-item>
         <el-form-item label="图片" prop="img">
-          <el-col :span="6">
-            <Upload v-model="imgsForm.img" />
+          <el-col :span="8">
+            <Upload v-model="imgsForm.img" /><br>
+            <span style="color: red"> [必填,建议尺寸：宽1200px*高800px，格式jpg,png]</span>
           </el-col>
+
         </el-form-item>
 
       </el-form>

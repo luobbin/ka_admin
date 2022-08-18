@@ -29,16 +29,18 @@
 
 
       <el-form-item label="产品首图">
-        <el-col :span="6">
-        <div style="margin-bottom: 10px;">
+        <div style="width: 180px; height: 180px;">
           <Upload v-model="postForm.index_img" />
         </div>
-        </el-col>
+        <br>
+        <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
       </el-form-item>
 
       <el-form-item label="产品轮播图">
         <div style="margin-bottom: 20px;">
           <Mupload v-bind:imgs="postForm.imgs" @successCBK="imageSuccessCBK" />
+          <br>
+          <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
         </div>
       </el-form-item>
 
@@ -100,7 +102,7 @@
           <el-col :span="6">
             <Upload v-model="featuresForm.img" />
           </el-col>
-          <span style="color: red"> [必填,固定尺寸：宽540px*高540px，格式JPG，PNG]</span>
+          <span style="color: red"> [必填,建议尺寸：宽600px*高600px，格式JPG，PNG]</span>
         </el-form-item>
 
       </el-form>

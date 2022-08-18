@@ -47,12 +47,14 @@
           <el-input v-model="applicationForm.title"></el-input>
         </el-form-item>
         <el-form-item label="展示视频" prop="url">
-            <FileUpload v-model="applicationForm.url" />
+          <FileUpload v-model="applicationForm.url" />
+          <br>
+          <span style="color: red"> [必填,建议尺寸：宽1920px*高1000px，格式MP4]</span>
         </el-form-item>
         <el-form-item label="视频封面" prop="img">
           <Upload v-model="applicationForm.img" />
           <br>
-          <span style="color: red"> [必填,固定尺寸：宽915px*高450px，格式JPG，PNG]</span>
+          <span style="color: red"> [必填,建议尺寸：宽1800px*高800px，格式JPG，PNG]</span>
         </el-form-item>
 
       </el-form>
