@@ -71,7 +71,23 @@
     <el-form-item label="公司招聘背景图介绍" prop="jobs_background_info">
       <el-input type="textarea" v-model="postForm.jobs_background_info"></el-input>
     </el-form-item>
+    <el-form-item label="公司招聘底部介绍" prop="jobs_bottom_info">
+      <el-input type="textarea" v-model="postForm.jobs_bottom_info"></el-input>
+    </el-form-item>
 
+    <el-form-item label="产品中心PC版背景图" prop="pcenter_background_pc_img">
+      <el-col :span="8">
+        <Upload v-model="postForm.pcenter_background_pc_img" />
+      </el-col>
+    </el-form-item>
+    <el-form-item label="产品中心手机版背景图" prop="pcenter_background_mob_img">
+      <el-col :span="8">
+        <Upload v-model="postForm.pcenter_background_mob_img" />
+      </el-col>
+    </el-form-item>
+    <el-form-item label="产品中心背景图介绍" prop="pcenter_background_info">
+      <el-input type="textarea" v-model="postForm.pcenter_background_info"></el-input>
+    </el-form-item>
     <el-form-item label="产品详情PC版背景图" prop="product_background_pc_img">
       <el-col :span="8">
         <Upload v-model="postForm.product_background_pc_img" />
@@ -119,6 +135,10 @@ const defaultForm = {
   jobs_background_info: '',
   product_background_pc_img: '',
   product_background_mob_img: '',
+  jobs_bottom_info: '',//公司招聘底部介绍
+  pcenter_background_pc_img: '',//产品中心PC版背景图
+  pcenter_background_mob_img: '',//产品中心手机版背景图
+  pcenter_background_info: '',//产品中心背景图介绍
 }
 export default {
   name: 'webset',
@@ -169,6 +189,10 @@ export default {
         jobs_background_info: [{ validator: validateRequire }],
         product_background_pc_img: [{ validator: validateRequire }],
         product_background_mob_img: [{ validator: validateRequire }],
+        jobs_bottom_info: [{ validator: validateRequire }],
+        pcenter_background_pc_img: [{ validator: validateRequire }],
+        pcenter_background_mob_img: [{ validator: validateRequire }],
+        pcenter_background_info: [{ validator: validateRequire }],
       }
     }
   },
