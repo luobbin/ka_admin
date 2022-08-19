@@ -18,6 +18,13 @@
         <el-option v-for="item in watermarkSwitchOptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
     </el-form-item>
+    <el-form-item label="水印图片" prop="water_mark">
+      <el-col :span="6">
+        <Upload v-model="postForm.water_mark" />
+      </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽100px*高50px，格式png]</span>
+    </el-form-item>
     <el-form-item label="版权信息" prop="web_copyright">
       <el-input v-model="postForm.web_copyright"></el-input>
     </el-form-item>
@@ -33,9 +40,16 @@
       <br>
       <span style="color: red"> [必填,建议尺寸：宽800px*高800px，格式jpg,png]</span>
     </el-form-item>
-    <el-form-item label="公众号二维码" prop="public_account_img">
+    <el-form-item label="库奥公众号二维码" prop="public_account_img">
       <el-col :span="6">
         <Upload v-model="postForm.public_account_img" />
+      </el-col>
+      <br>
+      <span style="color: red"> [必填,建议尺寸：宽500px*高500px，格式jpg,png]</span>
+    </el-form-item>
+    <el-form-item label="BBL公众号二维码" prop="public_account_img">
+      <el-col :span="6">
+        <Upload v-model="postForm.public_account_bbl_img" />
       </el-col>
       <br>
       <span style="color: red"> [必填,建议尺寸：宽500px*高500px，格式jpg,png]</span>
@@ -46,13 +60,13 @@
     <el-form-item label="联系电话" prop="connect_phone">
       <el-input v-model="postForm.connect_phone"></el-input>
     </el-form-item>
-    <el-form-item label="联系微信二维码" prop="wechat_connect_img">
-      <el-col :span="6">
-        <Upload v-model="postForm.wechat_connect_img" />
-      </el-col>
-      <br>
-      <span style="color: red"> [必填,建议尺寸：宽500px*高500px，格式jpg,png]</span>
-    </el-form-item>
+<!--    <el-form-item label="联系微信二维码" prop="wechat_connect_img">-->
+<!--      <el-col :span="6">-->
+<!--        <Upload v-model="postForm.wechat_connect_img" />-->
+<!--      </el-col>-->
+<!--      <br>-->
+<!--      <span style="color: red"> [必填,建议尺寸：宽500px*高500px，格式jpg,png]</span>-->
+<!--    </el-form-item>-->
     <el-form-item label="产品目录申请图集" title="建议尺寸：宽1920px*高650px，格式jpg,png">
       <div style="margin-bottom: 20px;">
         <Mupload v-bind:imgs="postForm.catalog_apply_imgs" @successCBK="imageSuccessCBK" />
@@ -167,6 +181,8 @@ const defaultForm = {
   pcenter_background_mob_img: '',//产品中心手机版背景图
   pcenter_background_info: '',//产品中心背景图介绍
   watermark_switch: 1,//水印开关
+  public_account_bbl_img: '',
+  water_mark: '',
 }
 
 //列表样式
@@ -230,6 +246,8 @@ export default {
         pcenter_background_mob_img: [{ validator: validateRequire }],
         pcenter_background_info: [{ validator: validateRequire }],
         watermark_switch: [{ validator: validateRequire }],
+        public_account_bbl_img: [{ validator: validateRequire }],
+        water_mark: [{ validator: validateRequire }],
       }
     }
   },
