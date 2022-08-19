@@ -162,7 +162,7 @@ const defaultForm = {
   public_account_img: '',
   right_account_list: '',
   connect_phone: '',
-  wechat_connect_img: '',
+  //wechat_connect_img: '',
   catalog_apply_imgs: [],
   web_header_menu_setting: '',
   mob_header_menu_setting: '',
