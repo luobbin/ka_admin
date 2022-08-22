@@ -93,8 +93,8 @@ export default {
         searchJoin: 'and',
         search: '',
         searchFields: '',
-        orderBy: 'id',
-        sortedBy: 'desc',
+        orderBy: 'sort;id',
+        sortedBy: 'desc;desc',
         filter: ''
       },
       searchQuery: {
