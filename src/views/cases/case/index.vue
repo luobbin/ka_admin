@@ -47,6 +47,13 @@
           <span v-else class="el-tag">否</span>
         </template>
       </el-table-column>
+      <el-table-column label="排序">
+        <template slot-scope="scope">
+          <span v-if="scope.row.sort>0">{{scope.row.sort}}</span>
+          <span v-else>--</span>
+        </template>
+      </el-table-column>
+
       <el-table-column prop="operate" label="操作" width="160" align="center">
         <template slot-scope="scope">
           <router-link :to="'/cases/case-edit/'+scope.row.id">
