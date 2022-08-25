@@ -74,6 +74,26 @@
         </div>
       </el-form-item>
 
+      <el-form-item label="下载文档" prop="docs">
+        <div class="list-add"> <el-button type="primary" @click="handleDocCreate">添加文档</el-button></div>
+        <div class="list-items">
+          <ul>
+            <li v-for="(row, index) in postForm.docs" class="detail-item" style="border-bottom: 1px solid #eee; padding-bottom: 5px;">
+              <el-col :span="2" style="padding-right: 5px; text-align: right; line-height: 70px; color:#606266"><b>文档{{index+1}}:</b></el-col>
+              <el-col :span="16" style="padding-left: 5px; padding-right: 5px; padding-top: 15px;">
+                <b v-html='row.name' style="color: gray"></b>
+                <br>
+                <a v-html='row.link' style="color: gray;line-height: 18px;"></a>
+              </el-col>
+              <el-col :span="6" style="padding-top: 20px;">
+                <el-button type="primary" size="small" @click="handleDocUpdate(row)">修改</el-button>
+                <el-button type="danger" size="small" @click="deleteDocData(row)">删除</el-button>
+              </el-col>
+              <div style="clear: both; width: 100%; height: 0"></div>
+            </li>
+          </ul>
+        </div>
+      </el-form-item>
 
       <el-form-item label="热门推荐">
         <el-radio-group v-model="postForm.if_hot">
@@ -112,6 +132,27 @@
         <el-button v-else type="primary" @click="updateData">更新</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog class="docs" :title="textMap[dialogDocStatus]" :visible.sync="dialogDocFormVisible" width="60%">
+      <el-form :model="docsForm" ref="docsForm" :rules="docsRules" size="small">
+        <el-form-item label="文档名称" prop="name">
+          <el-col :span="8"><el-input v-model="docsForm.name"></el-input></el-col>
+          <span style="color: red; padding-left: 5px;">必填，不超过5个字</span>
+        </el-form-item>
+        <el-form-item label="文件" prop="link">
+          <el-col :span="6">
+            <Dupload v-model="docsForm.link" />
+          </el-col>
+          <span style="color: red"> [必传,大小不超过5M]</span>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogDocFormVisible = false">取消</el-button>
+        <el-button v-if="dialogDocStatus=='create'" type="primary" @click="createDocData">添加</el-button>
+        <el-button v-else type="primary" @click="updateDocData">更新</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -119,6 +160,7 @@
 import Tinymce from '@/components/Tinymce'
 import Upload from '@/components/Upload/uploadImage'
 import Mupload from '@/components/Upload/uploadMutiImage'
+import Dupload from '@/components/Upload/uploadDocFile'
 import Sticky from '@/components/Sticky' // 粘性header组件
 import { getCates, fetchData, createData, updateData } from '@/api/product'
 //初始化表单
@@ -134,6 +176,7 @@ const defaultForm = {
   specification: '',//规格
   imgs: [],//图册
   features: [],//特点
+  docs: [],//文档下载
 }
 //默认特征
 const defaultFeature = {
@@ -142,10 +185,16 @@ const defaultFeature = {
   content:'',
   img:'',
 }
+//默认文档
+const defaultDoc = {
+  id: undefined,
+  name:'',
+  link:'',
+}
 
 export default {
   name: 'itemDetail',
-  components: { Tinymce, Upload, Sticky, Mupload},
+  components: { Tinymce, Upload, Sticky, Mupload, Dupload},
   props: {
     isEdit: {
       type: Boolean,
@@ -167,10 +216,13 @@ export default {
     return {
       postForm: Object.assign({}, defaultForm),
       featuresForm: Object.assign({}, defaultFeature),
+      docsForm: Object.assign({}, defaultDoc),
       loading: false,
       productCateOptions:null,
       dialogFormVisible: false,
       dialogStatus: '',
+      dialogDocFormVisible: false,
+      dialogDocStatus: '',
       textMap: {
         update: '编辑',
         create: '创建'
@@ -183,6 +235,10 @@ export default {
       featuresRules: {
         title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
         img: [{ required: true, message: '请上传图片', trigger: 'change' }],
+      },
+      docsRules: {
+        name: [{ required: true, message: '文件名长度不超过5', min:1, max:5, trigger: 'blur' }],
+        link: [{ required: true, message: '请上传文件', trigger: 'change' }],
       }
     }
   },
@@ -268,6 +324,49 @@ export default {
     imageSuccessCBK(arr) {
       this.postForm.imgs = arr
     },
+    handleDocCreate() {
+      this.docsForm = Object.assign({}, defaultDoc)
+      this.dialogDocStatus = 'create'
+      this.dialogDocFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['docsForm'].clearValidate()
+      })
+    },
+    createDocData() {
+      this.$refs['docsForm'].validate((valid) => {
+        if (valid) {
+          this.docsForm.id = this.postForm.docs.length+1
+          this.postForm.docs.push(this.docsForm)
+          this.dialogDocFormVisible = false
+        }
+      })
+    },
+    handleDocUpdate(row) {
+      this.docsForm = Object.assign({}, row)
+      this.dialogDocStatus = 'update'
+      this.dialogDocFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['docsForm'].clearValidate()
+      })
+    },
+    updateDocData() {
+      this.$refs['docsForm'].validate((valid) => {
+        if (valid) {
+          for (const v of this.postForm.docs) {
+            if (v.id === this.docsForm.id) {
+              const ide = this.postForm.docs.indexOf(v)
+              this.postForm.docs.splice(ide, 1, this.docsForm)
+              break
+            }
+          }
+          this.dialogDocFormVisible = false
+        }
+      })
+    },
+    deleteDocData(row) {
+      const index = this.postForm.docs.indexOf(row)
+      this.postForm.docs.splice(index, 1)
+    },
     handleCreate() {
       this.featuresForm = Object.assign({}, defaultFeature)
       this.dialogStatus = 'create'
@@ -315,6 +414,7 @@ export default {
       const index = this.postForm.features.indexOf(row)
       this.postForm.features.splice(index, 1)
     },
+
   }
 }
 </script>
