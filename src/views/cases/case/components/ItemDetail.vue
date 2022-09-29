@@ -250,7 +250,7 @@ export default {
               })
             })
           }
-          this.$router.push('/cases/case-list')
+          //this.$router.push('/cases/case-list')
           this.loading = false
         } else {
           console.log('error submit!!')

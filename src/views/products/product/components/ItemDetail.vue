@@ -312,7 +312,7 @@ export default {
               }
             })
           }
-          this.$router.push('/products/product-list')
+          //this.$router.push('/products/product-list')
           this.loading = false
         } else {
           console.log('error submit!!')
