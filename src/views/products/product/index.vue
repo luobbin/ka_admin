@@ -44,7 +44,7 @@
       <el-table-column prop="operate" label="操作" width="300" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <a :href="'http://api.kalighting.cn/product_detail/'+scope.row.id" target="_blank"> <el-button type="success" size="mini" icon="el-icon-view">预览</el-button></a>
-          <router-link :to="'/products/product-edit/'+scope.row.id"><el-button type="primary" size="small">修改</el-button></router-link>&nbsp;&nbsp;
+          <a :href="'/products/product-edit/'+scope.row.id" target="_blank"><el-button type="primary" size="small">修改</el-button></a>&nbsp;&nbsp;
           <el-button type="info" v-if="scope.row.if_hot==1" size="mini" @click="handleHotStatus(scope.row,'0')">取消推荐</el-button>
           <el-button type="danger" v-else size="mini" @click="handleHotStatus(scope.row,'1')">推荐</el-button>
         </template>

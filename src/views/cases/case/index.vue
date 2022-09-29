@@ -56,9 +56,9 @@
 
       <el-table-column prop="operate" label="操作" width="160" align="center">
         <template slot-scope="scope">
-          <router-link :to="'/cases/case-edit/'+scope.row.id">
+          <a :href="'/cases/case-edit/'+scope.row.id" target="_blank">
             <el-button type="primary" size="small">修改</el-button>
-          </router-link>
+          </a>
         </template>
       </el-table-column>
     </el-table>
